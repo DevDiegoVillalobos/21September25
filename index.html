@@ -239,7 +239,7 @@
       padding: 10px;
       box-sizing: border-box;
 
-      display: none;
+      display: block;
       flex-direction: column;
       align-items: center;
       justify-content: flex-end;
@@ -564,6 +564,7 @@
       }
     });
 
+    // ---- DRAG DESKTOP ----
     hudImage.setAttribute('draggable', 'true');
 
     giftContainer.addEventListener('dragover', (e) => {
@@ -573,6 +574,46 @@
     giftContainer.addEventListener('drop', (e) => {
       e.preventDefault();
       dropAction();
+    });
+
+    // ---- DRAG TOUCH (MÓVIL) ----
+    let isDragging = false;
+
+    hudImage.addEventListener('touchstart', (e) => {
+      isDragging = true;
+    });
+
+    hudImage.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+
+      const touch = e.touches[0];
+      hudImage.style.position = "absolute";
+      hudImage.style.left = `${touch.clientX - hudImage.offsetWidth / 2}px`;
+      hudImage.style.top = `${touch.clientY - hudImage.offsetHeight / 2}px`;
+    });
+
+    hudImage.addEventListener('touchend', (e) => {
+      isDragging = false;
+
+      const rectHud = hudImage.getBoundingClientRect();
+      const rectGift = giftContainer.getBoundingClientRect();
+
+      // 📍 Detecta si el HUD está dentro del giftContainer (colisión simple)
+      const overlap = !(
+        rectHud.right < rectGift.left ||
+        rectHud.left > rectGift.right ||
+        rectHud.bottom < rectGift.top ||
+        rectHud.top > rectGift.bottom
+      );
+
+      if (overlap) {
+        dropAction();
+      } else {
+        // Si no cayó en la zona, regresa a su lugar
+        hudImage.style.position = "";
+        hudImage.style.left = "";
+        hudImage.style.top = "";
+      }
     });
 
     showLine(currentLine);
