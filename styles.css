@@ -1,0 +1,282 @@
+/* ==========================
+   BODY Y FONDO PRINCIPAL
+   ========================== */
+   body {
+    font-family: 'Arial', sans-serif;
+    background: radial-gradient(ellipse at bottom, #fffbd5 0%, #aefff2 100%);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  /* ==========================
+     PÉTALOS ANIMADOS
+     ========================== */
+  .petal {
+    position: absolute;
+    top: -10%;
+    width: 20px;
+    height: 20px;
+    border-radius: 50% 10% 50% 10%;
+    background-color: #ffc107;
+    opacity: 1;
+    z-index: 10;
+    pointer-events: none;
+  }
+  
+  @keyframes fall-spin {
+    0% {
+      transform: translateY(-10vh) rotateZ(0deg) rotateY(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(110vh) rotateZ(360deg) rotateY(360deg);
+      opacity: 0.5;
+    }
+  }
+  
+  /* ==========================
+     ESTRELLAS PARPADEANTES
+     ========================== */
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: white;
+    opacity: 0.8;
+    animation: twinkle 2s infinite alternate;
+    z-index: 0;
+  }
+  
+  @keyframes twinkle {
+    0% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0.2; transform: scale(0.8); }
+  }
+  
+  /* ==========================
+     CONTENEDORES PRINCIPALES
+     ========================== */
+  #game-container,
+  #gift-container {
+    position: relative;
+    width: 95%;
+    max-width: 900px;
+    height: 70vh;
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    overflow: hidden;
+  }
+  
+  #game-container { background-image: url("https://media.istockphoto.com/id/1404046685/es/vector/aula-d%C3%ADa-fondo-de-anime-2d-ilustraci%C3%B3n.jpg?s=612x612&w=0&k=20&c=Dvrqth7u7hAo2CgaGyklikAKHRAzBV49poK2zE1u5-w="); z-index: 2; }
+  #gift-container { background-image: url("https://images2.alphacoders.com/109/thumb-1920-1091569.png"); display: none; }
+  
+  /* ==========================
+     IMÁGENES DE PERSONAJES
+     ========================== */
+  .character-image {
+    max-width: 40%;
+    height: auto;
+    object-fit: contain;
+    position: absolute;
+    bottom: 15%;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* Alineaciones */
+  .left { left: 5%; right: auto; }
+  .right { right: 5%; left: auto; }
+  .center { left: 50%; transform: translateX(-50%); }
+  
+  /* Animaciones compuestas */
+  .comp-left { left: 5%; animation: dance-move 3s ease-in-out infinite; }
+  .comp-right { right: 5%; animation: dance-move 3s ease-in-out infinite; }
+  .comp-center { left: 30%; transform: translateX(-50%); animation: dance-move 3.5s ease-in-out infinite; }
+  
+  /* ==========================
+     CUADRO DE DIÁLOGO
+     ========================== */
+  #dialog-box {
+    font-family: "Montserrat", sans-serif;
+    font-size: 1em;
+    background-color: rgba(255, 255, 255, 0.90);
+    border: 2px solid #aefff2;
+    border-radius: 10px;
+    padding: 10px;
+    width: 95%;
+    margin-bottom: 5px;
+    text-align: left;
+    z-index: 2;
+  }
+  
+  /* Indicador siguiente */
+  #next-indicator {
+    display: none;
+    font-size: 1.5em;
+    color: #83bdb3;
+    animation: blink 1s infinite;
+    text-align: right;
+    margin-top: 5px;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+  
+  /* Botón de siguiente (opcional) */
+  #next-button {
+    background-color: #aefff2;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 8px;
+  }
+  
+  /* ==========================
+     OBJETOS FLOTANTES
+     ========================== */
+  #gift-object {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: floaty 3s infinite ease-in-out, spinY 4s infinite linear;
+    cursor: pointer;
+    z-index: 5;
+    object-fit: contain;
+  }
+  
+  @keyframes floaty {
+    0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+    50% { transform: translate(-50%, -50%) translateY(-15px); }
+  }
+  
+  @keyframes spinY {
+    from { transform: translate(-50%, -50%) rotateY(0deg); }
+    to   { transform: translate(-50%, -50%) rotateY(360deg); }
+  }
+  
+  /* ==========================
+     HUD ESTILO MINECRAFT
+     ========================== */
+  #hud {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 120px;
+    display: none;
+    z-index: 20;
+    padding: 6px;
+    cursor: pointer;
+    animation: none;
+  }
+  #hud img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: pixelated;
+    cursor: pointer;
+  }
+  
+  /* Animación HUD */
+  .hud-throw-out { animation: throw-out 0.5s ease-in forwards; }
+  @keyframes throw-out {
+    0% { transform: translate(-50%, 0) scale(1) rotate(0deg); opacity: 1; }
+    100% { transform: translate(-50%, -50vh) scale(1) rotate(180deg); opacity: 0; }
+  }
+  
+  /* ==========================
+     OVERLAY DE TRANSICIÓN
+     ========================== */
+  #scene-transition {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #03002b;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s ease;
+    z-index: 9999;
+  }
+  #scene-transition.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
+  /* ==========================
+     ANIMACIONES DE DANZA
+     ========================== */
+  @keyframes dance-move {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(10px); }
+    50% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+    100% { transform: translateX(0); }
+  }
+  
+  /* ==========================
+     BOTONES DE MÚSICA
+     ========================== */
+  .music-btn {
+    position: absolute;
+    top: 10px; left: 10px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(6px);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 45px; height: 45px;
+    font-size: 1.3em;
+    cursor: pointer;
+    z-index: 100;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: transform 0.2s, background 0.3s;
+  }
+  .music-btn:hover { background: rgba(255, 255, 255, 0.25); }
+  .music-btn:active { transform: scale(0.9); }
+  
+  /* ==========================
+     TEXTOS ESPECIALES
+     ========================== */
+  .quote { text-decoration: underline; color: #d6336c; }
+  .important { font-weight: bold; color: #ff69b4; }
+  
+  /* ==========================
+     MEDIA QUERIES
+     ========================== */
+  @media (max-width: 768px) {
+    #game-container { height: 80vh; padding: 5px; }
+    .character-image { max-width: 60%; bottom: 20%; }
+    #dialog-box { font-size: 0.9em; padding: 8px; }
+    #floating-object { width: 35px; height: 35px; top: 15%; right: 5%; }
+  }
+  
+  @media (max-width: 600px) {
+    #gift-object { width: 70px; height: 70px; }
+    #hud { width: 90px; height: 90px; cursor: pointer;    }
+    .comp-left { left: -10%; animation: dance-move 3s ease-in-out infinite;  }
+    .comp-right { right: 10%; animation: dance-move 3.5s ease-in-out infinite; }
+    .comp-center { left: 50%; transform: translateX(-50%); animation: dance-move 3s ease-in-out infinite; }
+  }
+  
+  @media (max-width: 480px) {
+    .character-image { max-width: 70%; bottom: 25%; }
+    #dialog-box { font-size: 0.85em; width: 90%; }
+    #floating-object { width: 30px; height: 30px; }
+  }
+  
